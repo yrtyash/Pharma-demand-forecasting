@@ -1,10 +1,10 @@
-Pharma Demand Forecasting
+***Pharma Demand Forecasting***
 I built this as the ML component of a larger pharmacy management system my team was working on. The backend (MERN + blockchain) was handled by my teammate — my part was figuring out how to predict drug demand reliably and flag unusual sales patterns.
 The core problem: pharmacies either overstock and waste money on expired drugs, or run out of stock and lose sales. Both are avoidable with decent forecasting.
 ---
-What I built
+**What I built**
 A forecasting pipeline that combines three models and blends their outputs, plus an anomaly detector that flags weeks where sales behaved unusually.
-Why three models?
+*Why three models?*
 I tried Prophet alone first — it handles seasonality well but misses short-term patterns. LSTM captures sequential patterns but needs a lot of data to outperform simpler models. XGBoost with lag features picks up non-linear relationships the others miss. Each one has blind spots the others cover, so combining them made sense.
 The ensemble part
 My first version just used fixed weights (0.4 LSTM, 0.4 Prophet, 0.2 XGBoost) which I picked by hand — that was a bad idea. Replaced it with a Ridge regression meta-learner that learns the optimal blend from validation data. This is called stacking and it's a standard ensemble technique. Made a noticeable difference in the results.
